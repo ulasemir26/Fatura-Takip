@@ -1,0 +1,65 @@
+{
+  "name": "fatura-stok-takip",
+  "productName": "Fatura & Stok Takip",
+  "version": "1.0.0",
+  "description": "Offline-first masaüstü fatura, ödeme ve stok takip uygulaması",
+  "main": "dist-electron/main/index.js",
+  "scripts": {
+    "dev": "concurrently \"vite\" \"tsc -p tsconfig.main.json --watch\" \"wait-on tcp:5173 && electron .\"",
+    "build": "vite build && tsc -p tsconfig.main.json",
+    "start": "electron .",
+    "package:win": "npm run build && electron-builder --win nsis",
+    "lint": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.main.json --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.6.0",
+    "date-fns": "^3.6.0",
+    "electron-log": "^5.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zod": "^3.23.8",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.14",
+    "@types/react-dom": "^18.3.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.local.faturastoktakip",
+    "productName": "Fatura & Stok Takip",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Fatura & Stok Takip"
+    }
+  }
+}
