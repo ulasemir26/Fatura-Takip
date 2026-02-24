@@ -28,6 +28,9 @@ Sizde iki farklı hata olmuş:
 3. https://nodejs.org adresine girin.
 4. **Node.js 20 LTS** sürümünü indirin ve kurun.
 
+Alternatif (komutla kurulum):
+`winget install OpenJS.NodeJS.LTS`
+
 ### 1.2 Sürümü kontrol edin
 PowerShell açın, sadece bunu yazın:
 
@@ -62,6 +65,8 @@ OneDrive bazen `node_modules` klasörünü kilitler. Bu yüzden proje klasörün
 3) PowerShell scripti ile güvenli temizlik yapın (önerilen):
 
 `powershell -ExecutionPolicy Bypass -File .\scripts\windows-reset.ps1`
+
+> Eğer bu adımda `Node.js 20 LTS required` görürseniz, burada durun ve önce Node 20 LTS kurun.
 
 4) Paketleri yeniden kurun:
 
