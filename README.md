@@ -2,158 +2,137 @@
 
 Bu proje, Windows’ta çalışan **offline (internetsiz)** bir masaüstü uygulamasıdır.
 
-> Bu rehber, "yazılım bilmiyorum" diyen biri için hazırlandı.
+> Bu rehber, teknik bilgisi olmayan kullanıcılar için hazırlanmıştır.
 
 ---
 
-## 1) Ben ne yapacağım? (Çok kısa özet)
+## 0) ÖNEMLİ: Sizin hatanızın net sebebi
 
-Sadece şu adımları uygulayın:
-1. Bilgisayarınıza Node.js kurun.
-2. Bu projeyi GitHub’dan indirin.
-3. Komutları sırasıyla çalıştırın.
-4. Kurulum dosyası (`.exe`) üretin.
-5. `.exe` dosyasına çift tıklayıp programı kurun.
-6. Masaüstündeki **Fatura & Stok Takip** simgesine tıklayıp uygulamayı açın.
+Sizde iki farklı hata olmuş:
 
----
+1. **`ash is not recognized`**
+   - Sebep: PowerShell’e yanlışlıkla ` ```bash ` yazılmış.
+   - Kural: PowerShell’e sadece komut yazılır. ` ``` ` ile başlayan satırlar yazılmaz.
 
-## 2) Gerekli tek şeyler
-
-### 2.1 Node.js kurma
-1. Tarayıcıdan şurayı açın: **https://nodejs.org**
-2. "LTS" yazan sürümü indirin.
-3. Kurulumda hep **Next > Next > Finish** yapın.
-4. Kurulum bitince bilgisayarı bir kez kapatıp açın (önerilir).
-
-### 2.2 Git kurma (sadece proje indirmek için)
-1. Tarayıcıdan şurayı açın: **https://git-scm.com/download/win**
-2. İndirip kurun.
-3. Kurulumda varsayılan ayarlar genelde yeterli (Next > Next).
+2. **`better-sqlite3` kurulum hatası / Visual Studio C++ hatası**
+   - Sebep: Bilgisayarda **Node.js 24** var.
+   - Bu projede `better-sqlite3` için en sorunsuz sürüm **Node.js 20 LTS**.
 
 ---
 
-## 3) Projeyi GitHub’dan indirme (adım adım tıklama)
+## 1) Baştan, temiz ve garantili kurulum (adım adım)
 
-### Yöntem A (kolay): ZIP ile indir
-1. GitHub proje sayfasına gidin.
-2. Yeşil **Code** butonuna tıklayın.
-3. **Download ZIP** seçin.
-4. ZIP’i örneğin `Masaüstü\Fatura-Takip` klasörüne çıkarın.
+### 1.1 Node.js 20 LTS kurun
+1. Denetim Masası > Program Kaldır’dan mevcut Node.js sürümünü kaldırın (varsa).
+2. Bilgisayarı yeniden başlatın.
+3. https://nodejs.org adresine girin.
+4. **Node.js 20 LTS** sürümünü indirin ve kurun.
 
-### Yöntem B (terminal ile)
-1. Başlat menüsünden **PowerShell** açın.
-2. Aşağıdaki komutu yazın (**yalnızca komut satırını yazın, ` ```bash ` gibi satırları yazmayın**):
+### 1.2 Sürümü kontrol edin
+PowerShell açın, sadece bunu yazın:
 
-   PowerShell'e yazılacak komut:
-   `git clone <REPO_LINKINIZ>`
+`node -v`
 
-3. Sonra klasöre girin:
-
-   PowerShell'e yazılacak komut:
-   `cd Fatura-Takip`
+Sonuç `v20...` ile başlamalı.
 
 ---
 
-## 4) Uygulamayı ilk kez çalıştırma (geliştirme modu)
+## 2) Projeyi OneDrive dışına alın (EPERM hatasını önler)
 
-> Bu adım programın açıldığını test etmek içindir.
+OneDrive bazen `node_modules` klasörünü kilitler. Bu yüzden proje klasörünü C diskine taşıyın.
 
-PowerShell’de proje klasöründeyken sırayla çalıştırın (**tek tek**):
+Önerilen klasör:
 
-1. `npm install`
-2. `npm run dev`
-
-> Önemli: Markdown kod bloğu satırlarını (ör: ` ```bash `) PowerShell'e yapıştırmayın.
-
-Ne olacak?
-- Birkaç saniye sonra uygulama penceresi açılır.
-- Açılınca "Demo veri yüklensin mi?" sorusu gelir.
-  - İlk deneme için **Evet** deyin.
-
-Kapatmak için:
-- Uygulama penceresini kapatın.
-- PowerShell’de `Ctrl + C` yapın.
+`C:\Projects\Fatura-Takip`
 
 ---
 
-## 5) Kurulum dosyası (.exe) üretme
+## 3) PowerShell’de doğru komut sırası (kopyala-yapıştır güvenli)
 
-PowerShell’de proje klasöründe şu komutu çalıştırın:
+> Dikkat: Aşağıda sadece **tek satır komutlar** var. Satır satır çalıştırın.
+
+1) Proje klasörüne girin:
+
+`cd C:\Projects\Fatura-Takip`
+
+2) Eski kurulum artıklarını temizleyin:
+
+`npm cache clean --force`
+
+3) Varsa eski `node_modules` klasörünü silin:
+
+`rmdir /s /q node_modules`
+
+4) Varsa kilit dosyasını silin:
+
+`del package-lock.json`
+
+5) Paketleri yeniden kurun:
+
+`npm install`
+
+6) Uygulamayı başlatın:
+
+`npm run dev`
+
+---
+
+## 4) Kurulum sonrası uygulama açılmıyorsa
+
+### Hata: `concurrently is not recognized`
+Bu hata genelde `npm install` başarısız kaldığında olur.
+
+Çözüm:
+1. Önce `node -v` ile sürümün gerçekten `v20` olduğundan emin olun.
+2. Bölüm 3’teki 2-3-4-5 adımlarını tekrar uygulayın.
+3. Sonra tekrar çalıştırın:
+   - `npm run dev`
+
+---
+
+## 5) Windows .exe kurulum dosyası üretme
+
+Uygulama çalışıyorsa, aynı klasörde şu komutu çalıştırın:
 
 `npm run package:win`
 
-Bitince şurada kurulum dosyası oluşur:
-- `release` klasörü içinde `.exe`
+Bitince `release` klasörü içinde `.exe` oluşur.
 
-Kurulum:
+Kurulum için:
 1. `.exe` dosyasına çift tıklayın.
-2. Kurulum otomatik ilerler.
-3. Masaüstüne **Fatura & Stok Takip** kısayolu gelir.
-4. Kısayola çift tıklayıp uygulamayı açın.
+2. Kurulum bitince masaüstünde **Fatura & Stok Takip** kısayolu oluşur.
 
 ---
 
-## 6) Uygulamayı kullanırken nereye basacağım?
+## 6) Uygulama içinde nereye basacağım?
 
-Sol menüden sırasıyla:
+Sol menüden sırayla kullanın:
 
-1. **Cariler**
-   - "Yeni Cari" ile müşteri/tedarikçi ekleyin.
-2. **Stok**
-   - "Ürün Ekle" ile ürünlerinizi girin.
-3. **Faturalar**
-   - Alış veya satış faturası oluşturun.
-4. **Ödeme/Tahsilat**
-   - Yapılan ödeme veya alınan tahsilatı kaydedin.
-5. **Dashboard**
-   - Toplam borç/alacak, kritik stok gibi özetleri görün.
-6. **Raporlar**
-   - Bakiye raporunu CSV dışa aktarın.
-7. **Yedekleme**
-   - "Manuel Yedek Al" ile anlık yedek alın.
-   - Listeden yedek seçip "Geri Yükle" yapabilirsiniz.
+1. **Cariler** → “Yeni Cari”
+2. **Stok** → “Ürün Ekle”
+3. **Faturalar** → fatura oluştur
+4. **Ödeme/Tahsilat** → ödeme veya tahsilat gir
+5. **Dashboard** → özetleri gör
+6. **Raporlar** → CSV dışa aktar
+7. **Yedekleme** → “Manuel Yedek Al” / “Geri Yükle”
 
 ---
 
-## 7) Veriler nereye kaydoluyor?
+## 7) Verileriniz nereye kaydolur?
 
-Uygulama verileri yerel olarak şu yapıda tutulur:
 - Veritabanı: `Belgeler/FaturaStokTakip/faturastok.db`
 - Yedekler: `Belgeler/FaturaStokTakip/Backups`
 
-Yedekleme davranışı:
-- Açılışta otomatik yedek
-- Her 24 saatte bir otomatik yedek
-- Kapanışta yedek
-- Son 30 yedek saklanır
-
 ---
 
-## 8) Hata olursa ne yapacağım?
+## 8) En kritik kural (tekrar)
 
-### Sorun 1: `ash is not recognized` veya `bash` hatası alıyorum
-- Muhtemelen PowerShell'e yanlışlıkla ` ```bash ` satırını yapıştırdınız.
-- Çözüm: Sadece komutun kendisini yazın (ör: `npm install`).
-- Asla şu satırları yazmayın: ` ```bash ` veya ` ``` `.
+PowerShell’e **asla** şunları yazmayın:
+- ` ```bash `
+- ` ``` `
+- ` ```npm install `
 
-### Sorun 2: `npm install` hata veriyor
-- İnternet bağlantınızı kontrol edin.
-- Kurumsal bilgisayarda güvenlik duvarı npm’i engelleyebilir; IT ekibine danışın.
-
-### Sorun 3: Uygulama açılmıyor
-- PowerShell’i kapatıp yeniden açın.
-- Proje klasöründe tekrar `npm run dev` çalıştırın.
-
-### Sorun 4: Kurulumdan sonra kısayol yok
-- Başlat menüsünde "Fatura & Stok Takip" arayın.
-- Çıkarsa sağ tık → "Dosya konumunu aç" → masaüstüne kısayol gönderin.
-
----
-
-## 9) Geliştirici notu (teknik özet)
-
-- Electron + React + TypeScript
-- SQLite (`better-sqlite3`)
-- IPC katmanı ile güvenli renderer/main iletişimi
-- Modüller: Dashboard, Cari, Fatura, Ödeme/Tahsilat, Stok, Raporlar, Yedekleme
+PowerShell’e sadece komutu yazın:
+- `npm install`
+- `npm run dev`
+- `npm run package:win`

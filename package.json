@@ -9,7 +9,8 @@
     "build": "vite build && tsc -p tsconfig.main.json",
     "start": "electron .",
     "package:win": "npm run build && electron-builder --win nsis",
-    "lint": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.main.json --noEmit"
+    "lint": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.main.json --noEmit",
+    "preinstall": "node scripts/check-node-version.js"
   },
   "dependencies": {
     "better-sqlite3": "^9.6.0",
@@ -61,5 +62,8 @@
       "createStartMenuShortcut": true,
       "shortcutName": "Fatura & Stok Takip"
     }
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
