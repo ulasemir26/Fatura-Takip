@@ -43,14 +43,15 @@ Sadece şu adımları uygulayın:
 
 ### Yöntem B (terminal ile)
 1. Başlat menüsünden **PowerShell** açın.
-2. Aşağıdaki komutu yazın:
-```bash
-git clone <REPO_LINKINIZ>
-```
+2. Aşağıdaki komutu yazın (**yalnızca komut satırını yazın, ` ```bash ` gibi satırları yazmayın**):
+
+   PowerShell'e yazılacak komut:
+   `git clone <REPO_LINKINIZ>`
+
 3. Sonra klasöre girin:
-```bash
-cd Fatura-Takip
-```
+
+   PowerShell'e yazılacak komut:
+   `cd Fatura-Takip`
 
 ---
 
@@ -58,12 +59,12 @@ cd Fatura-Takip
 
 > Bu adım programın açıldığını test etmek içindir.
 
-PowerShell’de proje klasöründeyken sırayla çalıştırın:
+PowerShell’de proje klasöründeyken sırayla çalıştırın (**tek tek**):
 
-```bash
-npm install
-npm run dev
-```
+1. `npm install`
+2. `npm run dev`
+
+> Önemli: Markdown kod bloğu satırlarını (ör: ` ```bash `) PowerShell'e yapıştırmayın.
 
 Ne olacak?
 - Birkaç saniye sonra uygulama penceresi açılır.
@@ -78,11 +79,9 @@ Kapatmak için:
 
 ## 5) Kurulum dosyası (.exe) üretme
 
-PowerShell’de proje klasöründe çalıştırın:
+PowerShell’de proje klasöründe şu komutu çalıştırın:
 
-```bash
-npm run package:win
-```
+`npm run package:win`
 
 Bitince şurada kurulum dosyası oluşur:
 - `release` klasörü içinde `.exe`
@@ -133,15 +132,20 @@ Yedekleme davranışı:
 
 ## 8) Hata olursa ne yapacağım?
 
-### Sorun 1: `npm install` hata veriyor
+### Sorun 1: `ash is not recognized` veya `bash` hatası alıyorum
+- Muhtemelen PowerShell'e yanlışlıkla ` ```bash ` satırını yapıştırdınız.
+- Çözüm: Sadece komutun kendisini yazın (ör: `npm install`).
+- Asla şu satırları yazmayın: ` ```bash ` veya ` ``` `.
+
+### Sorun 2: `npm install` hata veriyor
 - İnternet bağlantınızı kontrol edin.
 - Kurumsal bilgisayarda güvenlik duvarı npm’i engelleyebilir; IT ekibine danışın.
 
-### Sorun 2: Uygulama açılmıyor
+### Sorun 3: Uygulama açılmıyor
 - PowerShell’i kapatıp yeniden açın.
 - Proje klasöründe tekrar `npm run dev` çalıştırın.
 
-### Sorun 3: Kurulumdan sonra kısayol yok
+### Sorun 4: Kurulumdan sonra kısayol yok
 - Başlat menüsünde "Fatura & Stok Takip" arayın.
 - Çıkarsa sağ tık → "Dosya konumunu aç" → masaüstüne kısayol gönderin.
 
