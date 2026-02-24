@@ -47,7 +47,7 @@ OneDrive bazen `node_modules` klasörünü kilitler. Bu yüzden proje klasörün
 
 ---
 
-## 3) PowerShell’de doğru komut sırası (kopyala-yapıştır güvenli)
+## 3) PowerShell’de doğru komut sırası (PowerShell uyumlu, hatasız)
 
 > Dikkat: Aşağıda sadece **tek satır komutlar** var. Satır satır çalıştırın.
 
@@ -55,23 +55,15 @@ OneDrive bazen `node_modules` klasörünü kilitler. Bu yüzden proje klasörün
 
 `cd C:\Projects\Fatura-Takip`
 
-2) Eski kurulum artıklarını temizleyin:
+2) PowerShell scripti ile güvenli temizlik yapın (önerilen):
 
-`npm cache clean --force`
+`powershell -ExecutionPolicy Bypass -File .\scripts\windows-reset.ps1`
 
-3) Varsa eski `node_modules` klasörünü silin:
-
-`rmdir /s /q node_modules`
-
-4) Varsa kilit dosyasını silin:
-
-`del package-lock.json`
-
-5) Paketleri yeniden kurun:
+3) Paketleri yeniden kurun:
 
 `npm install`
 
-6) Uygulamayı başlatın:
+4) Uygulamayı başlatın:
 
 `npm run dev`
 
@@ -84,8 +76,9 @@ Bu hata genelde `npm install` başarısız kaldığında olur.
 
 Çözüm:
 1. Önce `node -v` ile sürümün gerçekten `v20` olduğundan emin olun.
-2. Bölüm 3’teki 2-3-4-5 adımlarını tekrar uygulayın.
+2. Bölüm 3'teki reset scriptini tekrar çalıştırın.
 3. Sonra tekrar çalıştırın:
+   - `npm install`
    - `npm run dev`
 
 ---
@@ -136,3 +129,5 @@ PowerShell’e sadece komutu yazın:
 - `npm install`
 - `npm run dev`
 - `npm run package:win`
+
+Ek not: Bu projede Node sürümü zorunlu olarak `20.x` olmalı. `npm install` sırasında farklı sürümdeyseniz kurulum bilinçli olarak durdurulur.
