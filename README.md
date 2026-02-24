@@ -51,25 +51,34 @@ OneDrive bazen `node_modules` klasörünü kilitler. Bu yüzden proje klasörün
 
 > Dikkat: Aşağıda sadece **tek satır komutlar** var. Satır satır çalıştırın.
 
-1) Proje klasörüne girin:
+1) Proje klasörüne tek satırda geçin (tırnakla):
 
-`cd C:\Projects\Fatura-Takip`
+`Set-Location -LiteralPath 'C:\Projects\Fatura-Takip-codex-develop-offline-invoice-and-stock-tracking-app'`
 
-2) PowerShell scripti ile güvenli temizlik yapın (önerilen):
+2) Doğru klasörde olduğunuzu kontrol edin:
+
+`Get-Location`
+
+3) PowerShell scripti ile güvenli temizlik yapın (önerilen):
 
 `powershell -ExecutionPolicy Bypass -File .\scripts\windows-reset.ps1`
 
-3) Paketleri yeniden kurun:
+4) Paketleri yeniden kurun:
 
 `npm install`
 
-4) Uygulamayı başlatın:
+5) Uygulamayı başlatın:
 
 `npm run dev`
 
 ---
 
 ## 4) Kurulum sonrası uygulama açılmıyorsa
+
+### Hata: `cd : Cannot find path ...`
+- Sebep: `cd` komutuna yanlışlıkla iki yol birleştirilmiş yapıştırılmış olabilir.
+- Çözüm: Sadece tek satır şu komutu kullanın:
+  - `Set-Location -LiteralPath 'C:\Projects\Fatura-Takip-codex-develop-offline-invoice-and-stock-tracking-app'`
 
 ### Hata: `concurrently is not recognized`
 Bu hata genelde `npm install` başarısız kaldığında olur.
@@ -130,4 +139,4 @@ PowerShell’e sadece komutu yazın:
 - `npm run dev`
 - `npm run package:win`
 
-Ek not: Bu projede Node sürümü zorunlu olarak `20.x` olmalı. `npm install` sırasında farklı sürümdeyseniz kurulum bilinçli olarak durdurulur.
+Ek not: Bu projede Node sürümü zorunlu olarak `20.x` olmalı. Node 24 ile `npm install` bilinçli olarak durur (EBADENGINE). Bu normaldir.
